@@ -1,0 +1,59 @@
+---
+# -----------------------------------------------------------------------------
+# Validate server hostvars
+# -----------------------------------------------------------------------------
+# Global
+- name: Validate server hostvars Global
+  hosts: all
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    # -----------------------------------------------------------------------------
+    # Assert variables are defined
+    # -----------------------------------------------------------------------------
+    - name: Assert variables are defined
+      block:
+        - name: Assert variables are defined
+          assert:
+            that:
+              - server_location is defined
+              - server_environment is defined
+              - server_os is defined
+              - server_os_familly is defined
+              - server_provider is defined
+
+    # -----------------------------------------------------------------------------
+    # Assert application default values are on all servers
+    # -----------------------------------------------------------------------------
+    - name: Assert variables are defined
+      block:
+        - name: Assert variables are defined
+          assert:
+            that:
+              - application_trigram is defined
+              - application_trigram == 'ASV'
+
+
+# Validate Application groups override
+- name: Validate Application groups override
+  hosts: front_web
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    # -----------------------------------------------------------------------------
+    # Assert variables are defined
+    # -----------------------------------------------------------------------------
+    - name: Assert variables are defined
+      block:
+        - name: Assert variables are defined
+          assert:
+            that:
+              - server_disk is defined
+              - server_disk | length == 1
+              - server_disk[0].drive_letter == "c:"
+              - server_disk[0].capacity == 100
+

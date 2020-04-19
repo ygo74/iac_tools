@@ -17,7 +17,7 @@ ansible-playbook -i localhost,k 00-generate-application-servers.yml \
                  -e application_servers_path=../testresults/inventory
 
 cd tests
-ansible-playbook -i $OUTPUT_PATH/inventory/dev 00-validate_iac_output.yml
-ansible-playbook -i $OUTPUT_PATH/inventory/uat 00-validate_iac_output.yml
+ansible-playbook -i $OUTPUT_PATH/inventory/dev 00-validate_iac.yml
+ansible-playbook -i $OUTPUT_PATH/inventory/uat 00-validate_iac.yml
 
 deactivate

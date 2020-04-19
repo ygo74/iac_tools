@@ -21,10 +21,14 @@ application:
           capacity:     100
         - drive_letter: 'd:'
           capacity:     100
+      application_trigram: 'ASV'
 
     front_web:
       server_cpu:    4
       server_memory: 4096
+      server_disk:
+        - drive_letter: 'c:'
+          capacity:     100
 
     read_api:
       server_cpu:    8
