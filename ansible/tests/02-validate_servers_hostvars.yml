@@ -56,4 +56,3 @@
               - server_disk | length == 1
               - server_disk[0].drive_letter == "c:"
               - server_disk[0].capacity == 100
-
