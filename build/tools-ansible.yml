@@ -5,7 +5,7 @@ trigger:
     - features/*
   paths:
     include:
-    - tools/ansible/*
+    - ansible/*
     - build/*
     - specifications/*
     exclude:
