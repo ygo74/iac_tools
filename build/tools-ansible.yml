@@ -2,10 +2,10 @@ trigger:
   branches:
     include:
     - master
-    - infra/*
+    - features/*
   paths:
     include:
-    - tools/ansible/*
+    - ansible/*
     - build/*
     - specifications/*
     exclude:
@@ -92,7 +92,7 @@ jobs:
         workingDirectory: ansible/tests
         script: |
           source ../../ansible-2.9.6/bin/activate
-          ansible-playbook -i $(Build.ArtifactStagingDirectory)/dev 00-validate_iac_output.yml
+          ansible-playbook -i $(Build.ArtifactStagingDirectory)/dev 00-validate_iac.yml
     displayName: 'Validate generated application from specification'
     env:
       JUNIT_OUTPUT_DIR: $(System.DefaultWorkingDirectory)/tests

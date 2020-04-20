@@ -1,0 +1,147 @@
+---
+# -----------------------------------------------------------------------------
+# Validate Inventory structure
+# -----------------------------------------------------------------------------
+- name: Validate Inventory structure
+  hosts: all
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    # -----------------------------------------------------------------------------
+    # Assert Servers are in the correct groups
+    # -----------------------------------------------------------------------------
+    - name: Assert Servers are in the correct groups for inventory dev
+      block:
+        - name: Assert group structure for dev
+          assert:
+            that:
+              - hostvars[item.hostname].group_names | reject("in", item.expected_groups) | list | length == 0
+              - item.expected_groups | reject("in", hostvars[item.hostname].group_names ) | list | length == 0
+            fail_msg: >
+               Server {{ item.hostname }} belongs to groups not in expectd groups.
+               Server's groups : {{ hostvars[item.hostname].group_names | join(", ") }}.
+               Expected groups : {{ item.expected_groups | join (", ") }}.
+               Difference additionals : {{ hostvars[item.hostname].group_names | reject("in", item.expected_groups) | list | join (", ") }}.
+               Difference missing : {{ item.expected_groups | reject("in", hostvars[item.hostname].group_names) | list | join (", ") }}
+          when:
+            - inventory_dir is match('.*/inventory/dev')
+          loop:
+            - hostname: front_dev_1
+              expected_groups:
+                - applications
+                - application_specifications_v2
+                - front_web
+                - locations
+                - europe
+                - os
+                - win2k16
+                - windows
+                - providers
+                - azure
+            - hostname: read_dev_1
+              expected_groups:
+                - applications
+                - application_specifications_v2
+                - read_api
+                - locations
+                - europe
+                - os
+                - windows
+                - win2k16
+                - providers
+                - azure
+            - hostname: write_dev_1
+              expected_groups:
+                - applications
+                - application_specifications_v2
+                - write_api
+                - locations
+                - europe
+                - os
+                - windows
+                - win2k19
+                - providers
+                - azure
+            - hostname: database_dev_1
+              expected_groups:
+                - applications
+                - application_specifications_v2
+                - database
+                - locations
+                - europe
+                - os
+                - windows
+                - win2k16
+                - providers
+                - azure
+          run_once: true
+
+
+        - name: Assert group structure for uat
+          assert:
+            that:
+              - hostvars[item.hostname].group_names | reject("in", item.expected_groups) | list | length == 0
+              - item.expected_groups | reject("in", hostvars[item.hostname].group_names ) | list | length == 0
+            fail_msg: >
+               Server {{ item.hostname }} belongs to groups not in expectd groups.
+               Server's groups : {{ hostvars[item.hostname].group_names | join(", ") }}.
+               Expected groups : {{ item.expected_groups | join (", ") }}.
+               Difference additionals : {{ hostvars[item.hostname].group_names | reject("in", item.expected_groups) | list | join (", ") }}.
+               Difference missing : {{ item.expected_groups | reject("in", hostvars[item.hostname].group_names) | list | join (", ") }}
+          when:
+            - inventory_dir is match('.*/inventory/uat')
+          loop:
+            - hostname: front_uat_1
+              expected_groups:
+                - applications
+                - application_specifications_v2
+                - front_web
+                - locations
+                - europe
+                - os
+                - win2k16
+                - windows
+                - providers
+                - azure
+            - hostname: read_uat_1
+              expected_groups:
+                - applications
+                - application_specifications_v2
+                - read_api
+                - locations
+                - europe
+                - os
+                - windows
+                - win2k16
+                - providers
+                - azure
+            - hostname: write_uat_1
+              expected_groups:
+                - applications
+                - application_specifications_v2
+                - write_api
+                - locations
+                - europe
+                - os
+                - windows
+                - win2k19
+                - providers
+                - azure
+            - hostname: database_uat_1
+              expected_groups:
+                - applications
+                - application_specifications_v2
+                - database
+                - locations
+                - europe
+                - os
+                - windows
+                - win2k16
+                - providers
+                - azure
+          run_once: true
+
+      tags:
+        - assert

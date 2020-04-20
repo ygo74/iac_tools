@@ -1,0 +1,3 @@
+---
+- import_playbook: 01-validate_inventory_structure.yml
+- import_playbook: 02-validate_servers_hostvars.yml
