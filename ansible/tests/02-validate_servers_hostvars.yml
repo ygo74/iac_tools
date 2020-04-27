@@ -27,7 +27,7 @@
     # -----------------------------------------------------------------------------
     # Assert application default values are on all servers
     # -----------------------------------------------------------------------------
-    - name: Assert variables are defined
+    - name: Assert default values on all servers
       block:
         - name: Assert variables are defined
           assert:
@@ -37,7 +37,7 @@
 
 
 # Validate Application groups override
-- name: Validate Application groups override
+- name: Validate Application groups override front_web
   hosts: front_web
   connection: local
   gather_facts: false
@@ -49,7 +49,7 @@
     # -----------------------------------------------------------------------------
     - name: Assert variables are defined
       block:
-        - name: Assert variables are defined
+        - name: Assert override value for front_web
           assert:
             that:
               - server_disk is defined
