@@ -72,7 +72,7 @@ importlib-metadata==1.5.1
 importlib-resources==1.4.0
 ipaddress==1.0.22
 isodate==0.6.0
-Jinja2==2.11.1
+Jinja2==2.11.3
 jinja2-time==0.2.0
 jmespath==0.9.4
 junit-xml==1.8
